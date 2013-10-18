@@ -17,19 +17,33 @@ import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 
-public class EntityBeanRender implements Render<EntityBean> {
+public class EntityBeanRender {
     
-    public void render(EntityBean bean) {
+    public static String srcPath = Constant.SRC_PATH;
+    
+    public static String beanPackage = Constant.BEAN_PACKAGE;
+    
+    static {
+        System.out.println("[" + slashPath(srcPath) + "]文件夹为需要生成POJO项目的源代码根目录!");
+        System.out.println("将[" + beanPackage + "]文件夹作为POJO生成类的包!");
+    }
+    
+    public static void render(EntityBean bean) {
         Configuration cfg = new Configuration();
         cfg.setTemplateLoader(new ClassTemplateLoader(EntityBeanRender.class, "/"));
         cfg.setObjectWrapper(new DefaultObjectWrapper());
         Map<String, Object> root = new HashMap<String, Object>();
         root.put("bean", bean);
-        root.put("beanPackage", Constant.BEAN_PACKAGE);
+        root.put("beanPackage", beanPackage);
         
         try {
-            File beanDir = new File(slashPath(Constant.SRC_PATH) + pathFromPackage(Constant.BEAN_PACKAGE));
-            if (!beanDir.exists()) beanDir.mkdirs();
+            String beanDirPath = slashPath(srcPath) + pathFromPackage(beanPackage);
+            File beanDir = new File(beanDirPath);
+            if (!beanDir.exists()) {
+                System.out.println("创建[" + beanDirPath + "]文件夹,可以将该文件下的文件夹及文件复制到项目源代码的根目录中去!");
+                beanDir.mkdirs();
+            }
+            
             File javaFile = new File(beanDir + "/" + bean.getBeanName() + ".java");
             if (Constant.SAFE_MODE && javaFile.exists()) {// 安全模式下如果目标文件存在不覆盖
                 System.out.println(javaFile + "文件已经存在，跳过执行!");
@@ -56,7 +70,7 @@ public class EntityBeanRender implements Render<EntityBean> {
      * @return
      * @author walden
      */
-    private String pathFromPackage(String beanPackage) {
+    private static String pathFromPackage(String beanPackage) {
         return beanPackage.replace(".", "/");
     }
     
@@ -66,7 +80,7 @@ public class EntityBeanRender implements Render<EntityBean> {
      * @return
      * @author walden
      */
-    private String slashPath(String backslashPath) {
+    private static String slashPath(String backslashPath) {
         backslashPath = backslashPath.replace("\\", "/");
         return backslashPath.endsWith("/") ? backslashPath : backslashPath + "/";
     }

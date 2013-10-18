@@ -29,6 +29,19 @@ public class EntityBeanBuilder implements Builder<EntityBean> {
     
     private List<ColumnDefined> columnDefineds = new ArrayList<ColumnDefined>();
     
+    /**
+     * 将表定义，主键列表和列定义作为参数传入
+     * @param table
+     * @param primaryKeys2
+     * @param columnDefineds2
+     * @author walden
+     */
+    public EntityBeanBuilder(TableDefined tableDefined, List<String> primaryKeys, List<ColumnDefined> columnDefineds) {
+        this.tableDefined = tableDefined;
+        this.primaryKeys = primaryKeys;
+        this.columnDefineds = columnDefineds;
+    }
+    
     public EntityBean builder() {
         EntityBean entity = new EntityBean();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
