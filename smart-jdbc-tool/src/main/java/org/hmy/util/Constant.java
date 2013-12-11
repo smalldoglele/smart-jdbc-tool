@@ -26,11 +26,8 @@ public class Constant {
     
     public static String BEAN_PACKAGE = null;
     
-<<<<<<< HEAD
     public static String DAO_PACKAGE = null;
     
-=======
->>>>>>> a5d9b447770b69da96a88138d53f0df76c629b76
     public static boolean USE_ANNOTATION = false;
     
     public static boolean USE_CONSTRUCTOR = false;
@@ -56,10 +53,7 @@ public class Constant {
         TABLE_FILTER = PropsUtil.getValue("tableFilter");
         SRC_PATH = PropsUtil.getValue("srcPath");
         BEAN_PACKAGE = PropsUtil.getValue("beanPackage");
-<<<<<<< HEAD
         DAO_PACKAGE = PropsUtil.getValue("daoPackage");
-=======
->>>>>>> a5d9b447770b69da96a88138d53f0df76c629b76
         USE_ANNOTATION = BooleanUtils.toBoolean(PropsUtil.getValue("useAnnotation"));
         USE_CONSTRUCTOR = BooleanUtils.toBoolean(PropsUtil.getValue("useConstructor"));
         ANNOTATION_PACKAGE = PropsUtil.getValue("annotationPackage");

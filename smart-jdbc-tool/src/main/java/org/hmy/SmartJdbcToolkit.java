@@ -59,10 +59,6 @@ public class SmartJdbcToolkit {
             EntityBeanBuilder builder = new EntityBeanBuilder(table, primaryKeys, columnDefineds);
             EntityBeanRender.render(builder.builder());
         }
-<<<<<<< HEAD
         System.out.println("生成成功!" + tableDefineds.size() + "POJO,DAO类!");
-=======
-        System.out.println("共生成" + tableDefineds.size() + "个POJO实体类!");
->>>>>>> a5d9b447770b69da96a88138d53f0df76c629b76
     }
 }
