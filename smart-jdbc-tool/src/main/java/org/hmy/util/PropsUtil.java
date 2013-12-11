@@ -15,7 +15,7 @@ public class PropsUtil {
 	private static Ini ini = new Ini();
 	static {
 		try {
-			ini.load(PropsUtil.class.getResource("/config.props"));
+			ini.load(PropsUtil.class.getResource("/config.properties"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
