@@ -45,20 +45,30 @@ public class EntityBeanBuilder implements Builder<EntityBean> {
     public EntityBean builder() {
         EntityBean entity = new EntityBean();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
+<<<<<<< HEAD
         String beanName = createBeanNameByTableName();
+=======
+>>>>>>> a5d9b447770b69da96a88138d53f0df76c629b76
         entity.setTableName(tableDefined.getTableName());
         Comment tableComment = entity.getTableComment();
         tableComment.setLabel(getLabelFromComment(tableDefined.getTableComment()));
         tableComment.setContent(formatTableComment(getContentFromComment(tableDefined.getTableComment())));
+<<<<<<< HEAD
         entity.setBeanName(beanName);
+=======
+        entity.setBeanName(createBeanNameByTableName());
+>>>>>>> a5d9b447770b69da96a88138d53f0df76c629b76
         List<Field> fields = new ArrayList<Field>();
         List<String> imports = new ArrayList<String>();
         createFieldsAndImports(fields, imports);
         entity.setFields(fields);
         entity.setImports(imports);
         entity.setCreateDate(sdf.format(new Date()));
+<<<<<<< HEAD
         entity.setPojoFileName(beanName + ".java");
         entity.setDaoFileName(beanName + "Dao.java");
+=======
+>>>>>>> a5d9b447770b69da96a88138d53f0df76c629b76
         return entity;
     }
     

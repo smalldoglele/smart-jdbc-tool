@@ -10,7 +10,11 @@ import ${import};
  * ${bean.tableComment.label}
  * ${bean.tableComment.content}
  * @since ${bean.createDate}
+<<<<<<< HEAD
  * @author smart-jdbc-tool
+=======
+ * @author SmartJDBC Tools
+>>>>>>> a5d9b447770b69da96a88138d53f0df76c629b76
  */	
 	
 @Entity	

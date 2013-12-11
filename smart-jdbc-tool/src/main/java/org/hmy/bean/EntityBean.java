@@ -18,12 +18,15 @@ public class EntityBean {
     
     private String createDate;/* 创建时间 yyyy-MM-dd HH:mm:ss.SSS */
     
+<<<<<<< HEAD
     /* java bean 的文件名 */
     private String pojoFileName;
     
     /* java Dao 的文件名 */
     private String daoFileName;
     
+=======
+>>>>>>> a5d9b447770b69da96a88138d53f0df76c629b76
     public String getBeanName() {
         return beanName;
     }
@@ -72,6 +75,7 @@ public class EntityBean {
         this.tableComment = tableComment;
     }
     
+<<<<<<< HEAD
     public String getPojoFileName() {
         return pojoFileName;
     }
@@ -88,4 +92,6 @@ public class EntityBean {
         this.daoFileName = daoFileName;
     }
     
+=======
+>>>>>>> a5d9b447770b69da96a88138d53f0df76c629b76
 }
