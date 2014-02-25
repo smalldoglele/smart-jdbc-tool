@@ -9,6 +9,8 @@ public class EntityBean {
     
     private String tableName;
     
+    private String idJavaType;
+    
     /* 表注释 */
     private Comment tableComment = new Comment();
     
@@ -86,6 +88,14 @@ public class EntityBean {
     
     public void setDaoFileName(String daoFileName) {
         this.daoFileName = daoFileName;
+    }
+    
+    public String getIdJavaType() {
+        return idJavaType;
+    }
+    
+    public void setIdJavaType(String idJavaType) {
+        this.idJavaType = idJavaType;
     }
     
 }

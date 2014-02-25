@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
  */	
 	
 @Repository
-public class ${bean.beanName}Dao  extends BaseDao<${bean.beanName}> {	
+public class ${bean.beanName}Dao  extends BaseDao<${bean.beanName},${bean.idJavaType}> {	
 
 }

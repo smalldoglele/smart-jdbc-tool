@@ -57,13 +57,13 @@ public class EntityBeanBuilder implements Builder<EntityBean> {
         
         List<Field> fields = new ArrayList<Field>();
         List<String> imports = new ArrayList<String>();
-        createFieldsAndImports(fields, imports);
+        createFieldsAndImports(fields, imports, entity);
         entity.setFields(fields);
         entity.setImports(imports);
         entity.setCreateDate(sdf.format(new Date()));
         
-        entity.setPojoFileName(beanName + ".java");
-        entity.setDaoFileName(beanName + "Dao.java");
+        entity.setPojoFileName(beanName);
+        entity.setDaoFileName(beanName + "Dao");
         
         return entity;
     }
@@ -129,7 +129,7 @@ public class EntityBeanBuilder implements Builder<EntityBean> {
      * @param fields
      * @param imports
      */
-    private void createFieldsAndImports(List<Field> fields, List<String> imports) {
+    private void createFieldsAndImports(List<Field> fields, List<String> imports, EntityBean entiy) {
         boolean nonIdAnnotation = true;
         boolean nonColumnAnnotation = true;
         imports.add(Constant.ANNOTATION_PACKAGE + ".Entity");
@@ -149,6 +149,8 @@ public class EntityBeanBuilder implements Builder<EntityBean> {
             field.setGetterMethodName("get" + recolumnName);
             if (primaryKeys.contains(columnName)) {
                 field.setAnnotaction(Constant.ID_ANNOTATION);
+                field.setType(createFieldTypeByColumnType(columnType, imports));
+                entiy.setIdJavaType(field.getType());// 生成javaType
                 if (nonIdAnnotation) {
                     imports.add(Constant.ANNOTATION_PACKAGE + ".Id");
                     nonIdAnnotation = false;

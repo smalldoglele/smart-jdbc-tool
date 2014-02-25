@@ -25,6 +25,10 @@ public class EntityBeanRender {
     
     public static String daoPackage = Constant.DAO_PACKAGE;
     
+    public static int pojoCount = 0;
+    
+    public static int daoCount = 0;
+    
     static {
         System.out.println("[" + slashPath(srcPath) + "]文件夹为需要生成POJO项目的源代码根目录!");
         System.out.println("将[" + beanPackage + "]生成java bean的对象,[" + daoPackage + "]生成DAO对象!");
@@ -35,8 +39,16 @@ public class EntityBeanRender {
         root.put("bean", bean);
         root.put("beanPackage", beanPackage);
         root.put("daoPackage", daoPackage);
-        render(root, beanPackage, bean.getPojoFileName(), "beanTemplate.ftl");
-        render(root, daoPackage, bean.getDaoFileName(), "daoTemplate.ftl");
+        if (bean.getIdJavaType() != null) {
+            render(root, beanPackage, bean.getPojoFileName(), "beanTemplate.ftl");
+            pojoCount++;
+            render(root, daoPackage, bean.getDaoFileName(), "daoTemplate.ftl");
+            daoCount++;
+        } else {
+            render(root, beanPackage, bean.getPojoFileName(), "beanTemplate.ftl");
+            pojoCount++;
+            System.out.println("表+" + bean.getTableName() + "没有唯一主键,无法生成DAO类!");
+        }
     }
     
     /**
@@ -67,7 +79,7 @@ public class EntityBeanRender {
             } else {
                 Writer fileWriter = new BufferedWriter(new FileWriter(javaFile));
                 
-                Template temp = cfg.getTemplate("beanTemplate.ftl");
+                Template temp = cfg.getTemplate(classTemplate);
                 temp.process(root, fileWriter);
                 System.out.println("生成" + Constant.BEAN_PACKAGE + "." + javaFileName + ".java 成功!");
                 

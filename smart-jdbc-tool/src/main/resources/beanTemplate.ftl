@@ -10,11 +10,7 @@ import ${import};
  * ${bean.tableComment.label}
  * ${bean.tableComment.content}
  * @since ${bean.createDate}
-<<<<<<< HEAD
  * @author smart-jdbc-tool
-=======
- * @author SmartJDBC Tools
->>>>>>> a5d9b447770b69da96a88138d53f0df76c629b76
  */	
 	
 @Entity	
@@ -27,6 +23,7 @@ public class ${bean.beanName} implements Serializable {
 	<#if field.annotaction??>${field.annotaction}</#if>
 	private ${field.type} ${field.name};<#if field.comment.label?? && field.comment.label!=''>/*${field.comment.label}*/</#if>
 	</#list>
+	
 	<#list bean.fields as field>
 	<#if field.comment.label?? && field.comment.label!=''>
 	/**

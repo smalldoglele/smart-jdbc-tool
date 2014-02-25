@@ -9,6 +9,7 @@ import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.Parser;
 import org.hmy.bean.ColumnDefined;
+import org.hmy.bean.EntityBean;
 import org.hmy.bean.TableDefined;
 import org.hmy.util.Constant;
 import org.hmy.util.JdbcUtil;
@@ -59,6 +60,6 @@ public class SmartJdbcToolkit {
             EntityBeanBuilder builder = new EntityBeanBuilder(table, primaryKeys, columnDefineds);
             EntityBeanRender.render(builder.builder());
         }
-        System.out.println("生成成功!" + tableDefineds.size() + "POJO,DAO类!");
+        System.out.println("生成成功("+EntityBeanRender.pojoCount+")POJO,("+EntityBeanRender.daoCount+")DAO类!");
     }
 }
