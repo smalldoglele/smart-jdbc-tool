@@ -42,7 +42,7 @@ public class SQLServerDialect implements Dialect {
     
     public String getColumnMetaDateSqlByTableName(String tableName) {
         StringBuffer sql = new StringBuffer("select sc.colorder as columnNumber,sc.[name] as columnName,st.[name] as columnType,");
-        sql.append("isnull(cmt.text,'') defaultValue,case when columnproperty(sc.id,sc.[name],'IsIdentity')=1 then 1 else 0 end as isidentity,");
+        sql.append("isnull(cmt.text,'') defaultValue,");
         sql.append("sc.length as length,columnproperty(sc.id,sc.[name],'PRECISION') as precision,isnull(columnproperty(sc.id,sc.[name],'SCALE'),0) as scale,");
         sql.append("isnull(ep1.[value],'') as columnComment,case when sc.isnullable=1 then 1 else 0 end as isnullable");
         sql.append(" from syscolumns sc left join systypes st on sc.xusertype=st.xusertype");

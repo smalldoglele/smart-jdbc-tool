@@ -2,7 +2,9 @@ package org.hmy.util;
 
 import java.sql.Connection;
 import java.sql.DatabaseMetaData;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.List;
 import org.hmy.bean.ColumnDefined;
 import org.hmy.bean.TableDefined;
 import org.hmy.dialect.Dialect;
+import org.ini4j.Ini;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.ConnectionCallback;
