@@ -1,4 +1,4 @@
-package org.hmy.bean;
+package org.smart.jdbc.tool.object;
 
 public class ColumnDefined {
     
@@ -24,7 +24,7 @@ public class ColumnDefined {
     private Integer isnullable;
     
     /* 是否是自增列 0/1 */
-    private Integer isidentity;
+    private Integer isautoincrement;
     
     /* 默认值 */
     private String defaultValue;
@@ -88,12 +88,12 @@ public class ColumnDefined {
         this.isnullable = isnullable;
     }
     
-    public Integer getIsidentity() {
-        return isidentity;
+    public Integer getIsautoincrement() {
+        return isautoincrement;
     }
     
-    public void setIsidentity(Integer isidentity) {
-        this.isidentity = isidentity;
+    public void setIsautoincrement(Integer isautoincrement) {
+        this.isautoincrement = isautoincrement;
     }
     
     public String getDefaultValue() {
@@ -110,5 +110,10 @@ public class ColumnDefined {
     
     public void setColumnComment(String columnComment) {
         this.columnComment = columnComment;
+    }
+    
+    public String toString() {
+        return "ColumnDefined [columnNumber=" + columnNumber + ", columnName=" + columnName + ", columnType=" + columnType + ", length=" + length + ", precision=" + precision + ", scale=" + scale
+               + ", isnullable=" + isnullable + ", isautoincrement=" + isautoincrement + ", defaultValue=" + defaultValue + ", columnComment=" + columnComment + "]";
     }
 }

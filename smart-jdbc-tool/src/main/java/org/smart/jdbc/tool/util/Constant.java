@@ -1,4 +1,4 @@
-package org.hmy.util;
+package org.smart.jdbc.tool.util;
 
 import java.util.Map;
 

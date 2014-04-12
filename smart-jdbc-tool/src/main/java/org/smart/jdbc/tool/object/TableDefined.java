@@ -1,7 +1,7 @@
 /**
  * 
  */
-package org.hmy.bean;
+package org.smart.jdbc.tool.object;
 
 /**
  * 数据表定义对象
@@ -30,6 +30,10 @@ public class TableDefined {
     
     public void setTableComment(String tableComment) {
         this.tableComment = tableComment;
+    }
+    
+    public String toString() {
+        return "TableDefined [tableName=" + tableName + ", tableComment=" + tableComment + "]";
     }
     
 }

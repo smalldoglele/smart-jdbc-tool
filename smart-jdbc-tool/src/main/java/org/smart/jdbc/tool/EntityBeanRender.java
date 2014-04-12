@@ -1,4 +1,4 @@
-package org.hmy;
+package org.smart.jdbc.tool;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -8,8 +8,8 @@ import java.io.Writer;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.hmy.bean.EntityBean;
-import org.hmy.util.Constant;
+import org.smart.jdbc.tool.object.EntityBean;
+import org.smart.jdbc.tool.util.Constant;
 
 import freemarker.cache.ClassTemplateLoader;
 import freemarker.template.Configuration;
@@ -25,10 +25,6 @@ public class EntityBeanRender {
     
     public static String daoPackage = Constant.DAO_PACKAGE;
     
-    public static int pojoCount = 0;
-    
-    public static int daoCount = 0;
-    
     static {
         System.out.println("[" + slashPath(srcPath) + "]文件夹为需要生成POJO项目的源代码根目录!");
         System.out.println("将[" + beanPackage + "]生成java bean的对象,[" + daoPackage + "]生成DAO对象!");
@@ -41,13 +37,10 @@ public class EntityBeanRender {
         root.put("daoPackage", daoPackage);
         if (bean.getIdJavaType() != null) {
             render(root, beanPackage, bean.getPojoFileName(), "beanTemplate.ftl");
-            pojoCount++;
+            if ("NonID".equals(bean.getIdJavaType())) {
+                System.out.print(bean.getBeanName() + " 没有主键,使用NonID");
+            }
             render(root, daoPackage, bean.getDaoFileName(), "daoTemplate.ftl");
-            daoCount++;
-        } else {
-            render(root, beanPackage, bean.getPojoFileName(), "beanTemplate.ftl");
-            pojoCount++;
-            System.out.println("表+" + bean.getTableName() + "没有唯一主键,无法生成DAO类!");
         }
     }
     

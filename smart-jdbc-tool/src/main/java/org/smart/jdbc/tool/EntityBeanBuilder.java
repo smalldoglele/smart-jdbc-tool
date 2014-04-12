@@ -1,4 +1,4 @@
-package org.hmy;
+package org.smart.jdbc.tool;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
-import org.hmy.bean.ColumnDefined;
-import org.hmy.bean.Comment;
-import org.hmy.bean.EntityBean;
-import org.hmy.bean.Field;
-import org.hmy.bean.TableDefined;
-import org.hmy.util.Constant;
+import org.smart.jdbc.tool.object.ColumnDefined;
+import org.smart.jdbc.tool.object.Comment;
+import org.smart.jdbc.tool.object.EntityBean;
+import org.smart.jdbc.tool.object.Field;
+import org.smart.jdbc.tool.object.TableDefined;
+import org.smart.jdbc.tool.util.Constant;
 
 public class EntityBeanBuilder implements Builder<EntityBean> {
     
@@ -62,7 +62,6 @@ public class EntityBeanBuilder implements Builder<EntityBean> {
         entity.setImports(imports);
         entity.setCreateDate(sdf.format(new Date()));
         
-        entity.setPojoFileName(beanName);
         entity.setDaoFileName(beanName + "Dao");
         
         return entity;
@@ -147,7 +146,9 @@ public class EntityBeanBuilder implements Builder<EntityBean> {
             comment.setContent(formatColumnComment(getContentFromComment(columnComent)));
             field.setSetterMethodName("set" + recolumnName);
             field.setGetterMethodName("get" + recolumnName);
-            if (primaryKeys.contains(columnName)) {
+            if (primaryKeys.size() == 0) {// 如果没有主键
+                entiy.setIdJavaType("NonID");// 使用smart-jdbc的org.smart.jdbc.object.NonID类来标志没有主键的DAO;
+            } else if (primaryKeys.contains(columnName)) {
                 field.setAnnotaction(Constant.ID_ANNOTATION);
                 field.setType(createFieldTypeByColumnType(columnType, imports));
                 entiy.setIdJavaType(field.getType());// 生成javaType
@@ -177,6 +178,9 @@ public class EntityBeanBuilder implements Builder<EntityBean> {
         String fieldType = "";
         Map<String, String> typeMapping = Constant.TYPE_MAPPINT;
         String lowerDataType = columnType.toLowerCase();
+        if (lowerDataType.contains("unsigned")) {// update by walden mysql 中的column type有会面的unsigned
+            lowerDataType = lowerDataType.replace("unsigned", "").trim();
+        }
         String value = typeMapping.get(lowerDataType);
         if (value != null) {
             fieldType = value.replaceAll(".+\\.", "");

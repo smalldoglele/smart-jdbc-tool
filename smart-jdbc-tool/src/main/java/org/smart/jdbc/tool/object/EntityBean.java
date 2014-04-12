@@ -1,4 +1,4 @@
-package org.hmy.bean;
+package org.smart.jdbc.tool.object;
 
 import java.util.ArrayList;
 import java.util.List;

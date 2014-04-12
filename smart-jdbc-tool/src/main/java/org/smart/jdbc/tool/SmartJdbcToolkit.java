@@ -1,4 +1,4 @@
-package org.hmy;
+package org.smart.jdbc.tool;
 
 import java.util.List;
 
@@ -8,11 +8,11 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.cli.Parser;
-import org.hmy.bean.ColumnDefined;
-import org.hmy.bean.EntityBean;
-import org.hmy.bean.TableDefined;
-import org.hmy.util.Constant;
-import org.hmy.util.JdbcUtil;
+import org.smart.jdbc.tool.object.ColumnDefined;
+import org.smart.jdbc.tool.object.TableDefined;
+import org.smart.jdbc.tool.util.Constant;
+import org.smart.jdbc.tool.util.IMetaData;
+import org.smart.jdbc.tool.util.JdbcUtil;
 
 public class SmartJdbcToolkit {
     
@@ -51,15 +51,15 @@ public class SmartJdbcToolkit {
      * @author walden
      */
     public static void go() {
-        JdbcUtil jdbcUtitl = new JdbcUtil();
+        IMetaData jdbcUtitl = new JdbcUtil();
         List<TableDefined> tableDefineds = jdbcUtitl.getTableDefineds();
         for (TableDefined table : tableDefineds) {
             String tableName = table.getTableName();
             List<String> primaryKeys = jdbcUtitl.getPrimaryKeysByTableName(tableName);
-            List<ColumnDefined> columnDefineds = jdbcUtitl.getColumnsByTableName(tableName);
+            List<ColumnDefined> columnDefineds = jdbcUtitl.getColumnDefinedsByTableName(tableName);
             EntityBeanBuilder builder = new EntityBeanBuilder(table, primaryKeys, columnDefineds);
             EntityBeanRender.render(builder.builder());
         }
-        System.out.println("生成成功("+EntityBeanRender.pojoCount+")POJO,("+EntityBeanRender.daoCount+")DAO类!");
+        System.out.println("生成成功(" + tableDefineds.size() + ")POJO,DAO类!");
     }
 }

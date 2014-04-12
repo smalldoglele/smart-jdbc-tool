@@ -3,6 +3,8 @@ package org.hmy.test;
 import java.util.Calendar;
 import java.util.Date;
 
+import org.smart.jdbc.tool.util.JdbcUtil;
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -31,17 +33,8 @@ public class AppTest extends TestCase {
      * Rigourous Test :-)
      */
     public void testApp() {
-        Calendar calendar1=Calendar.getInstance();
-        Calendar calendar2=Calendar.getInstance();
-        calendar1.set(Calendar.YEAR, 2013);
-        calendar1.set(Calendar.MONTH, 3);
-        calendar1.set(Calendar.DATE, 9);
-        //
-        calendar2.set(Calendar.YEAR, 2013);
-        calendar2.set(Calendar.MONTH, 10);
-        calendar2.set(Calendar.DATE, 14);
-        int count=calendar2.get(Calendar.DAY_OF_YEAR)-calendar1.get(Calendar.DAY_OF_YEAR);
-        System.out.println(count);
-        assertTrue(true);
+        JdbcUtil jdbcUtitl = new JdbcUtil();
+        System.out.println(jdbcUtitl.getTableDefineds().size());
+        System.out.println(jdbcUtitl.getColumnDefinedsByTableName("t_rp"));
     }
 }
