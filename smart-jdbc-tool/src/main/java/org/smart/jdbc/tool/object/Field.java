@@ -9,6 +9,8 @@ public class Field {
     /* 列的注释 */
     private Comment comment = new Comment();
     
+    private String idAnnotaction;
+    
     private String annotaction;
     
     private String setterMethodName;
@@ -37,6 +39,14 @@ public class Field {
     
     public void setComment(Comment comment) {
         this.comment = comment;
+    }
+    
+    public String getIdAnnotaction() {
+        return idAnnotaction;
+    }
+    
+    public void setIdAnnotaction(String idAnnotaction) {
+        this.idAnnotaction = idAnnotaction;
     }
     
     public String getAnnotaction() {

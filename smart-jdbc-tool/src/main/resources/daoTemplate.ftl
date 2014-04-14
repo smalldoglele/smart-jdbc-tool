@@ -2,8 +2,8 @@ package ${daoPackage};
 
 import org.smart.jdbc.BaseDao;
 import ${beanPackage}.${bean.beanName};
-<#if bean.idJavaType=='NonID'>
-import org.smart.jdbc.object.NonID;
+<#if bean.idJavaType=='NonId'>
+import org.smart.jdbc.object.NonId;
 </#if>
 import org.springframework.stereotype.Repository;	
 
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class ${bean.beanName}Dao  extends BaseDao<${bean.beanName},${bean.idJavaType}> {
 	
-<#if bean.idJavaType=='NonID'>
+<#if bean.idJavaType=='NonId'>
 	public ${bean.beanName} get(NonID id) {
         throw new UnsupportedOperationException("[${bean.beanName}Dao]对应的表没有主键，不支持get(ID id)方法!");
     }

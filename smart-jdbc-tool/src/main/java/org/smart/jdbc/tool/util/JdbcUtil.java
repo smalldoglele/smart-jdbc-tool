@@ -57,7 +57,7 @@ public class JdbcUtil implements IMetaData {
                     columnDefined.setLength(rs.getInt("CHAR_OCTET_LENGTH"));
                     columnDefined.setPrecision(rs.getInt("DECIMAL_DIGITS"));
                     columnDefined.setScale(rs.getInt("COLUMN_SIZE"));
-                    columnDefined.setIsautoincrement("YES".equals(rs.getString("IS_AUTOINCREMENT")) ? 1 : 0);
+                    //columnDefined.setIsautoincrement("YES".equals(rs.getString("IS_AUTOINCREMENT")) ? 1 : 0);
                     columnDefined.setColumnComment(rs.getString("REMARKS"));
                     columnDefineds.add(columnDefined);
                 }

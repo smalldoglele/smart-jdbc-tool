@@ -35,6 +35,6 @@ public class AppTest extends TestCase {
     public void testApp() {
         JdbcUtil jdbcUtitl = new JdbcUtil();
         System.out.println(jdbcUtitl.getTableDefineds().size());
-        System.out.println(jdbcUtitl.getColumnDefinedsByTableName("t_rp"));
+        System.out.println(jdbcUtitl.getColumnDefinedsByTableName("keys"));
     }
 }

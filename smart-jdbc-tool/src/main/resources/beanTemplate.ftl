@@ -20,6 +20,7 @@ public class ${bean.beanName} implements Serializable {
 	private static final long serialVersionUID = 1L;
 	<#list bean.fields as field>
 	
+	<#if field.idAnnotaction??>${field.idAnnotaction}</#if>
 	<#if field.annotaction??>${field.annotaction}</#if>
 	private ${field.type} ${field.name};<#if field.comment.label?? && field.comment.label!=''>/*${field.comment.label}*/</#if>
 	</#list>

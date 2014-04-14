@@ -34,7 +34,7 @@ public class Constant {
     
     public static String ANNOTATION_PACKAGE = null;
     
-    public static boolean KEEPP_REFIX = false;
+    public static boolean KEEP_REFIX = false;
     
     public static String COLUMN_ANNOTATION = null;
     
@@ -57,7 +57,7 @@ public class Constant {
         USE_ANNOTATION = BooleanUtils.toBoolean(PropsUtil.getValue("useAnnotation"));
         USE_CONSTRUCTOR = BooleanUtils.toBoolean(PropsUtil.getValue("useConstructor"));
         ANNOTATION_PACKAGE = PropsUtil.getValue("annotationPackage");
-        KEEPP_REFIX = BooleanUtils.toBoolean(PropsUtil.getValue("keepPrefix"));
+        KEEP_REFIX = BooleanUtils.toBoolean(PropsUtil.getValue("keepPrefix"));
         COLUMN_ANNOTATION = PropsUtil.getValue("columnAnnotation");
         ID_ANNOTATION = PropsUtil.getValue("idAnnotation");
         SAFE_MODE = BooleanUtils.toBoolean(PropsUtil.getValue("safemode"));

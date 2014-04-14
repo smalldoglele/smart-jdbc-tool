@@ -61,7 +61,7 @@ public class EntityBeanBuilder implements Builder<EntityBean> {
         entity.setFields(fields);
         entity.setImports(imports);
         entity.setCreateDate(sdf.format(new Date()));
-        
+        entity.setPojoFileName(beanName);
         entity.setDaoFileName(beanName + "Dao");
         
         return entity;
@@ -146,10 +146,12 @@ public class EntityBeanBuilder implements Builder<EntityBean> {
             comment.setContent(formatColumnComment(getContentFromComment(columnComent)));
             field.setSetterMethodName("set" + recolumnName);
             field.setGetterMethodName("get" + recolumnName);
+            String columnAnnotion = String.format(Constant.COLUMN_ANNOTATION, columnName);
             if (primaryKeys.size() == 0) {// 如果没有主键
-                entiy.setIdJavaType("NonID");// 使用smart-jdbc的org.smart.jdbc.object.NonID类来标志没有主键的DAO;
+                entiy.setIdJavaType("NonId");// 使用smart-jdbc的org.smart.jdbc.object.NonId类来标志没有主键的DAO;
             } else if (primaryKeys.contains(columnName)) {
-                field.setAnnotaction(Constant.ID_ANNOTATION);
+                field.setIdAnnotaction(Constant.ID_ANNOTATION);
+                field.setAnnotaction(columnAnnotion);
                 field.setType(createFieldTypeByColumnType(columnType, imports));
                 entiy.setIdJavaType(field.getType());// 生成javaType
                 if (nonIdAnnotation) {
@@ -157,7 +159,7 @@ public class EntityBeanBuilder implements Builder<EntityBean> {
                     nonIdAnnotation = false;
                 }
             } else if (Constant.USE_ANNOTATION) {
-                field.setAnnotaction(String.format(Constant.COLUMN_ANNOTATION, columnName));
+                field.setAnnotaction(columnAnnotion);
                 if (nonColumnAnnotation) {
                     imports.add(Constant.ANNOTATION_PACKAGE + ".Column");
                     nonColumnAnnotation = false;
@@ -219,7 +221,7 @@ public class EntityBeanBuilder implements Builder<EntityBean> {
         String tableName = tableDefined.getTableName();
         if (tableName.indexOf("_") > -1) {
             String[] names = tableDefined.getTableName().split("_");
-            int startIndex = Constant.KEEPP_REFIX ? 0 : 1;
+            int startIndex = Constant.KEEP_REFIX ? 0 : 1;
             for (int i = startIndex; i < names.length; i++) {
                 beanName += StringUtils.capitalize(names[i]);
             }
