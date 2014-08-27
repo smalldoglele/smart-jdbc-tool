@@ -1,9 +1,10 @@
 package ${beanPackage};	
 
-import java.io.Serializable;	
 <#list bean.imports as import>
 import ${import};
 </#list>
+import java.io.Serializable;
+import org.smart.jdbc.annotation.*;
 
 /**
  * ${bean.beanName} entity for ${bean.tableName} table.

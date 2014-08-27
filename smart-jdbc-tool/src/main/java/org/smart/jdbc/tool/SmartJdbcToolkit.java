@@ -21,18 +21,24 @@ public class SmartJdbcToolkit {
             Options opts = new Options();
             opts.addOption("h", "help", false, "显示smart-jdbc-tool使用说明");
             opts.addOption("s", "src", true, "需要生成的POJO类的项目的源代码根目录路径，如：{project}/src/main/java,默认使用config.properties中的[global.srcPath]项的设置值。");
-            opts.addOption("p", "package", true, "该工具生成的POJO类的包声明，如：org.walden.bean.po,默认使用config.properties中的[global.beanPackage]项的设置值。");
+            opts.addOption("bp", "bpkg", true, "该工具生成的POJO类的包声明，如：org.walden.bean.po,默认使用config.properties中的[global.beanPackage]项的设置值。");
+            opts.addOption("dp", "dpkg", true, "该工具生成的POJO类的包声明，如：org.walden.dao,默认使用config.properties中的[global.daoPackage]项的设置值。");
             opts.addOption("g", "go", false, "根据config.properties和-s，-p参数的配置生成POJO类。");
             Parser parser = new BasicParser();
             CommandLine cli = parser.parse(opts, args);
-            if (cli.getOptions().length > 0 && (cli.getOptions().length == 1 && !cli.hasOption('h'))) {
+            if (cli.getOptions().length > 0 && !cli.hasOption('h')) {
                 if (cli.hasOption('s')) {
-                    System.out.println(cli.getOptionValue("s"));
+                    System.out.println("生成文件的目录是："+cli.getOptionValue("s"));
                     Constant.SRC_PATH = cli.getOptionValue("s");
                 }
-                if (cli.hasOption('p')) {
-                    System.out.println(cli.getOptionValue("p"));
-                    Constant.BEAN_PACKAGE = cli.getOptionValue("p");
+                if (cli.hasOption("bp")) {
+                    System.out.println("项目po的package是：" + cli.getOptionValue("bp"));
+                    Constant.BEAN_PACKAGE = cli.getOptionValue("bp");
+                    
+                }
+                if (cli.hasOption("dp")) {
+                    System.out.println("项目dao的package是：" + cli.getOptionValue("dp"));
+                    Constant.DAO_PACKAGE = cli.getOptionValue("dp");
                 }
                 if (cli.hasOption('g')) {
                     go();

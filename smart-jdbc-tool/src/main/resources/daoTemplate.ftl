@@ -17,11 +17,11 @@ import org.springframework.stereotype.Repository;
 public class ${bean.beanName}Dao  extends BaseDao<${bean.beanName},${bean.idJavaType}> {
 	
 <#if bean.idJavaType=='NonId'>
-	public ${bean.beanName} get(NonID id) {
+	public ${bean.beanName} get(NonId id) {
         throw new UnsupportedOperationException("[${bean.beanName}Dao]对应的表没有主键，不支持get(ID id)方法!");
     }
     
-    public int delete(NonID id) {
+    public int delete(NonId id) {
         throw new UnsupportedOperationException("[${bean.beanName}Dao]对应的表没有主键，不支持delete(ID id)方法!");
     }
 </#if>

@@ -127,12 +127,9 @@ public class EntityBeanBuilder implements Builder<EntityBean> {
      * 生成这个表的所有字段类和import的数据;
      * @param fields
      * @param imports
+     * @modify 调整系统 在模板中加入注解包的不在代码中引入注解的import
      */
     private void createFieldsAndImports(List<Field> fields, List<String> imports, EntityBean entiy) {
-        boolean nonIdAnnotation = true;
-        boolean nonColumnAnnotation = true;
-        imports.add(Constant.ANNOTATION_PACKAGE + ".Entity");
-        imports.add(Constant.ANNOTATION_PACKAGE + ".Table");
         for (ColumnDefined column : columnDefineds) {
             Field field = new Field();
             String columnName = column.getColumnName();
@@ -154,16 +151,8 @@ public class EntityBeanBuilder implements Builder<EntityBean> {
                 field.setAnnotaction(columnAnnotion);
                 field.setType(createFieldTypeByColumnType(columnType, imports));
                 entiy.setIdJavaType(field.getType());// 生成javaType
-                if (nonIdAnnotation) {
-                    imports.add(Constant.ANNOTATION_PACKAGE + ".Id");
-                    nonIdAnnotation = false;
-                }
             } else if (Constant.USE_ANNOTATION) {
                 field.setAnnotaction(columnAnnotion);
-                if (nonColumnAnnotation) {
-                    imports.add(Constant.ANNOTATION_PACKAGE + ".Column");
-                    nonColumnAnnotation = false;
-                }
             }
             fields.add(field);
         }
@@ -180,13 +169,20 @@ public class EntityBeanBuilder implements Builder<EntityBean> {
         String fieldType = "";
         Map<String, String> typeMapping = Constant.TYPE_MAPPINT;
         String lowerDataType = columnType.toLowerCase();
-        if (lowerDataType.contains("unsigned")) {// update by walden mysql 中的column type有会面的unsigned
-            lowerDataType = lowerDataType.replace("unsigned", "").trim();
+        if (lowerDataType.contains("unsigned")) {
+            // update by walden mysql 中的column type有会面的unsigned
+            // update by walden oracle中的column type中会有timestamp(6)移除后面的维护
+            lowerDataType = lowerDataType.replaceAll("unsigned", "").replaceAll("\\([0-9]+?\\)$", "").trim();
+        }
+        if (lowerDataType.contains("identity")) {
+            // update by walden sqlServer 如int identity
+            lowerDataType = lowerDataType.replaceAll("identity.*$", "").trim();
         }
         String value = typeMapping.get(lowerDataType);
         if (value != null) {
             fieldType = value.replaceAll(".+\\.", "");
-            if (!value.startsWith(JAVA_LANG) && !imports.contains(value)) {
+            // update by walden 过滤掉byte[]
+            if (!value.startsWith(JAVA_LANG) && !imports.contains(value) && !value.equals("byte[]")) {
                 imports.add(value);
             }
         } else {
@@ -217,16 +213,19 @@ public class EntityBeanBuilder implements Builder<EntityBean> {
      * @return
      */
     public String createBeanNameByTableName() {
+        
         String beanName = "";
         String tableName = tableDefined.getTableName();
+        
         if (tableName.indexOf("_") > -1) {
             String[] names = tableDefined.getTableName().split("_");
             int startIndex = Constant.KEEP_REFIX ? 0 : 1;
             for (int i = startIndex; i < names.length; i++) {
-                beanName += StringUtils.capitalize(names[i]);
+                // update by walden 如果表名是全部是大写的话 如：TABLES
+                beanName += StringUtils.capitalize(names[i].toLowerCase());
             }
         } else {
-            beanName = StringUtils.capitalize(tableName);
+            beanName = StringUtils.capitalize(tableName.toLowerCase());
         }
         return beanName;
     }
